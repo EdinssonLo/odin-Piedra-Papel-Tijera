@@ -1,0 +1,76 @@
+html {
+    background: url('./images/game.jpg') no-repeat;
+    background-size: cover;
+  }
+body{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    color: white;
+    
+}
+.header  {
+    font-family: 'Courier New', Courier, monospace;
+    background: rgb(41, 39, 36);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    font-size: 48px;
+    font-weight: 900;
+    color: rgb(204, 221, 238);
+    padding: 4px 32px;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .card{
+    cursor:pointer;
+    max-width: 200px;
+    border: 2px solid rgb(212, 151, 36);
+  }
+  .container{
+    margin-top: 5%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 52px;
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:rgb(41, 39, 36);
+    color: rgb(204, 221, 238);
+  }
+
+  .move{
+    text-align:  center;
+  }
+
+  .win{
+    padding: 2%;
+    font-size: 50px;
+    font-weight: 900;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    color: white;
+  }
+
+  .win.player{
+    color: green;
+  }
+
+  .win.computer{
+    color: red;
+  }
+  

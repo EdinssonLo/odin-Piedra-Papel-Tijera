@@ -1,50 +1,94 @@
+const body = document.querySelector("body");
+const h1Round = document.createElement("h1");
+const h1Score = document.createElement("h1");
+const divMsnWin = document.querySelector('.win');
+
 const elements = ["rock", "paper", "scissors"];
+let pointsPlayer = 0;
+let pointsComputer = 0;
 
 const getComputerChoice = () => {
   const aleatorio = elements[Math.floor(Math.random() * elements.length)];
   return aleatorio;
 };
 
-const getPlayerChoice = () => {
-  const aleatorio = prompt("Enter you'r option Rock, paper or scissors", "");
+const getPlayerChoice = (player) => {
+  const aleatorio = player;
   return aleatorio.toLowerCase();
 };
 
-const messageWin = (win, lose, player) => {
-  let message;
-  if (player === 1) {
-    message = "You Lose! " + win + " beats " + lose;
-  } else {
-    message = "You win! " + win + " beats " + lose;
-  }
-  return message;
+const messageWin = (player) => {
+   let mensaje = (player === 1) ? "Computer Win! " : "You win! ";
+   if(player===1){
+    mensaje = "Computer Win! ";
+    divMsnWin.classList.remove('player')
+    divMsnWin.classList.add('computer')
+   }
+   else if(player===2){
+    mensaje =  "You win! "
+    divMsnWin.classList.remove('computer')
+    divMsnWin.classList.add('player')
+   }else{
+    divMsnWin.classList.remove('player')
+    divMsnWin.classList.remove('computer')
+    mensaje ="Empate"
+   }
+   divMsnWin.textContent=mensaje;
 };
 
 const playRound = (computerSelection, playerSelection) => {
   let mensajeGanador;
-  if (computerSelection == "rock" && playerSelection == "scissors") {
-    return (mensajeGanador = messageWin(computerSelection, playerSelection, 1));
-  } else if (computerSelection == "scissors" && playerSelection == "rock") {
-    return (mensajeGanador = messageWin(playerSelection, computerSelection, 2));
+  if (
+    (computerSelection == "rock" && playerSelection == "scissors") ||
+    (computerSelection == "scissors" && playerSelection == "paper") ||
+    (computerSelection == "paper" && playerSelection == "rock")
+  ) {
+    messageWin(1);
+    pointsComputer++;
+  } else if (
+    (computerSelection == "scissors" && playerSelection == "rock") ||
+    (computerSelection == "paper" && playerSelection == "scissors") ||
+    (computerSelection == "rock" && playerSelection == "paper")
+  ) {
+    messageWin(2);
+    pointsPlayer++;
+  }else {
+    messageWin(3);
   }
-  if (computerSelection == "scissors" && playerSelection == "paper") {
-    return (mensajeGanador = messageWin(computerSelection, playerSelection, 1));
-  } else if (computerSelection == "paper" && playerSelection == "scissors") {
-    return (mensajeGanador = messageWin(playerSelection, computerSelection, 2));
-  }
-  if (computerSelection == "paper" && playerSelection == "rock") {
-    return (mensajeGanador = messageWin(computerSelection, playerSelection, 1));
-  } else if (computerSelection == "rock" && playerSelection == "paper") {
-    return (mensajeGanador = messageWin(playerSelection, computerSelection, 1));
-  }
+
+  
 };
 
-const game = () => {
-  for (let index = 0; index < 5; index++) {
-    const computerSelection = getComputerChoice();
-    const playerSelection = getPlayerChoice();
-    console.log(playRound(computerSelection, playerSelection));
-  }
+const game = (e) => {
+  const computerSelection = getComputerChoice();
+  const playerSelection = getPlayerChoice(e.target.alt);
+  playRound(computerSelection, playerSelection);
+  round(playerSelection, computerSelection);
 };
 
-game();
+const round = (player, computer) => {
+  console.log(player + " aqui " + computer);
+  h1Round.classList.add("move");
+  h1Round.textContent = player + " Vs " + computer;
+  body.appendChild(h1Round);
+  score(pointsPlayer, pointsComputer);
+};
+
+const score = (pointsPlayer, pointsComputer) => {
+  h1Score.classList.add("move");
+  h1Score.textContent =
+    " Player: " + pointsPlayer + " Computer: " + pointsComputer;
+  body.appendChild(h1Score);
+  
+};
+
+
+
+const cards = Array.from(document.querySelectorAll(".card"));
+cards.forEach((card) =>
+  card.addEventListener("click", function (e) {
+    game(e);
+  })
+);
+
+//game();
